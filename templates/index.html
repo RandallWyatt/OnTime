@@ -4,12 +4,12 @@
 <head>
     <title>To Do List App</title>
 
-
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC" rel="stylesheet">
     <script src="../static/js.js"></script>
-    <link rel="stylesheet" type="text/css" href="../templates/styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href={{ styles }}>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -17,18 +17,27 @@
 
     <div class="container">
         <div class="header">
+            <h1 class="text-muted">Are You On Time?</h1>
             <nav>
+
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active"><a href="#">Home</a>
+                    <li role="presentation" class="nav"><a href="#">Home</a>
                     </li>
-                    <li role="presentation"><a href="#">Sign In (Coming Soon)</a>
+                    <li role="presentation" class="disabled" >Sign In (Coming Soon)</a>
                     </li>
-                    <li role="presentation"><a href="#">Sign Up (Coming Soon)</a>
+                    <li role="presentation" class="disabled">Sign Up (Coming Soon)</a>
                     </li>
                 </ul>
             </nav>
-            <h3 class="text-muted">Are You On Time?</h3>
+        <select id="colorSelection" onchange="changeColor(this)">
+            <option value="#">Default</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="black">Black</option>
+        </select>
         </div>
+
     <div id="myDIV" class="header" style="list-style: none">
         <h2>My To Do List</h2>
         <input type="text" id="myInput" placeholder="Task">
@@ -45,6 +54,19 @@
         </footer>
 
     </div>
+
+<script>
+    function changeColor(color) {
+    window.location.href = "/"+color.value;
+}
+    var getColor = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+    $("select#colorSelection").val(getColor)
+
+    var d = document.getElementById("disabled");
+d.className = d.className + " disabled";
+
+</script>
 </body>
 
 </html>

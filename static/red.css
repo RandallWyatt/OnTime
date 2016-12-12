@@ -1,0 +1,19 @@
+footer{
+    color: #000;
+}
+li{
+    display: inline-block;
+    text-decoration: none;
+    /*float: right;*/
+    /*clear: left;*/
+    padding: 3px;
+    font-family: 'Playfair Display SC', serif;
+    margin-left: 20px;
+}
+h1{
+    font-family: 'Playfair Display SC', serif;
+    text-align: center;
+}
+body{
+    background-color: #b8080b;
+}

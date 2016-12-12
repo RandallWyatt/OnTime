@@ -1,0 +1,28 @@
+body{
+    width: 100%;
+}
+.addBtn{
+    border: solid black 1px;
+    padding: 3px;
+    border-radius: 8px;
+}
+footer{
+    color: #000;
+    bottom:0;
+    position: fixed;
+
+}
+li{
+   display: inline-block;
+    text-decoration: none;
+    /*float: right;*/
+    /*clear: left;*/
+    padding: 3px;
+    font-family: 'Playfair Display SC', serif;
+    margin-left: 20px;
+}
+h1{
+    font-family: 'Playfair Display SC', serif;
+    text-align: center;
+}
+
