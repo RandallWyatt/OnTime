@@ -6,7 +6,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC" rel="stylesheet">
     <script src="../static/js.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href={{ styles }}>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -23,14 +23,19 @@
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="nav"><a href="#">Home</a>
                     </li>
-                    <li role="presentation" class="disabled" >Sign In (Coming Soon)</a>
+                    <li role="presentation" class="nav"><a href="login">Sign In </a>
                     </li>
-                    <li role="presentation" class="disabled">Sign Up (Coming Soon)</a>
+                    <li role="presentation" class="nav"><a href="signup">Sign Up</a>
+                    </li>
+                    <li role="presentation" class="nav"><a href="logout">Logout</a>
                     </li>
                 </ul>
             </nav>
+            {% if current_user.is_active %}
+    Welcome, {{ current_user.username }}! <br/>
+            {% endif %}
         <select id="colorSelection" onchange="changeColor(this)">
-            <option value="#">Default</option>
+            <option value="styles">Default</option>
             <option value="red">Red</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
@@ -57,7 +62,7 @@
 
 <script>
     function changeColor(color) {
-    window.location.href = "/"+color.value;
+    window.location.href = "/color/"+color.value;
 }
     var getColor = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
