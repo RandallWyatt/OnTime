@@ -21,6 +21,8 @@ ul{
     display: inline-table;
 }
 
-footer{
+footer {
     color: #000;
+    bottom: 0;
+    position: fixed;
 }

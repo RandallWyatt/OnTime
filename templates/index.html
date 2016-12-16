@@ -8,7 +8,7 @@
     <script src="../static/js.js"></script>
     <link href="../static/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href={{ styles }}>
+    <link rel="stylesheet" type="text/css" href={{ data.styles }}>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
 </head>
@@ -49,6 +49,10 @@
         <span onclick="newElement()" class="addBtn">Add</span>
         </div>
     <ul id="myUL">
+{#{% if data.tasks %}#}
+{% for task in data.tasks %}
+        <li class="col-xs-12">{{ task.info }}<span class="close">×</span></li>
+{% endfor %}
 
     </ul>
 
@@ -61,16 +65,56 @@
     </div>
 
 <script>
+    window.onload = function () {
+
+
     function changeColor(color) {
     window.location.href = "/color/"+color.value;
 }
-    var getColor = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+    var getColor = "{{ session['color'] }}";
 
-    $("select#colorSelection").val(getColor)
+    $("select#colorSelection").val(getColor);
 
     var d = document.getElementById("disabled");
 d.className = d.className + " disabled";
 
+    function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("Are you going to add something?");
+  } else {
+    $.ajax({
+       url: '{{ url_for('task', action='new') }}',
+       data: {
+         info: inputValue
+       },
+       type: 'POST',
+       error: function(error) {
+         console.log(error);
+       }
+     });
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    };
+  }
+}
+
+};
 </script>
 </body>
 

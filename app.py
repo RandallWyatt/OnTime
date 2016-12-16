@@ -1,5 +1,5 @@
-from flask import Flask, render_template, session, redirect, url_for, request, flash
-from flask.ext.login import LoginManager, login_user, UserMixin, login_required, logout_user
+from flask import Flask, render_template, session, redirect, url_for, request, flash, jsonify
+from flask.ext.login import LoginManager, login_user, UserMixin, login_required, logout_user, current_user
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True)
     password = db.Column(db.String(100))
     email = db.Column(db.String(100))
-    tasks = db.relationship('Task', backref='user', lazy='dynamic')
+    tasks = db.relationship('Task', backref='user', lazy='joined')
 
 
 class Task(db.Model):
@@ -42,7 +42,10 @@ def main():
     if 'color' in session:
         color = session['color']
         style_link = '/static/' + color + '.css'
-    return render_template('index.html', styles=style_link)
+        data = {'styles': style_link}
+        if current_user.is_authenticated:
+            data['tasks'] = current_user.tasks
+    return render_template('index.html', data=data)
 
 
 @app.route('/color/<color>')
@@ -85,7 +88,18 @@ def logout():
     flash('You have been logged out, login again.')
     return redirect(url_for('login'))
 
+
+@app.route('/task/<action>', methods=["POST"])
+@login_required
+def task(action):
+    if action == 'new':
+        task = Task(info=request.form['info'])
+        current_user.tasks.append(task)
+        db.session.add(current_user)
+        db.session.commit()
+    return jsonify({'id': task.id})
+
+
+
 if __name__ == '__main__':
     app.run()
-
-

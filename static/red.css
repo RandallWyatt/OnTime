@@ -1,6 +1,3 @@
-footer{
-    color: #000;
-}
 li{
     display: inline-block;
     text-decoration: none;
@@ -13,7 +10,18 @@ li{
 h1{
     font-family: 'Playfair Display SC', serif;
     text-align: center;
+    color: #FFF;
 }
 body{
-    background-color: #b8080b;
+    background-color: #92080b;
+    color: #d5d5d5;
+}
+
+footer {
+    color: #000;
+    bottom: 0;
+    position: fixed;
+}
+select{
+    color: #000;
 }

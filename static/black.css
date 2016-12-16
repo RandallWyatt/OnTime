@@ -1,5 +1,7 @@
-footer{
-    color: #FFF;
+footer {
+    color: #000;
+    bottom: 0;
+    position: fixed;
 }
 h1, h2{
     color:#FFF;
